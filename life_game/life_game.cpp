@@ -1,3 +1,4 @@
+#include <avr/pgmspace.h>
 #include "life_game.h"
 
 uint8_t extractVerticalPattern (uint8_t* current, uint8_t x, uint8_t y) {
@@ -20,7 +21,7 @@ uint8_t extractVerticalPattern (uint8_t* current, uint8_t x, uint8_t y) {
 }
 
 bool evaluateVertical (uint8_t* current, uint8_t* live, uint8_t y) {
-  const uint8_t scoreTable[] = { 0, 1, 1, 2, 1, 2, 2, 3 };
+  const uint8_t scoreTable[] PROGMEM = { 0, 1, 1, 2, 1, 2, 2, 3 };
   uint8_t verticals[MAX_WIDTH];
   uint8_t count;
 
@@ -54,7 +55,7 @@ bool evaluateVertical (uint8_t* current, uint8_t* live, uint8_t y) {
 }
 
 bool evaluate (uint8_t* current, uint8_t x, uint8_t y) {
-  const uint8_t scoreTable[] = { 0, 1, 1, 2, 1, 2, 2, 3 };
+  const uint8_t scoreTable[] PROGMEM = { 0, 1, 1, 2, 1, 2, 2, 3 };
   uint8_t vPattern;
   uint8_t count    = 0;
 
@@ -88,7 +89,7 @@ bool evaluate (uint8_t* current, uint8_t x, uint8_t y) {
 void setAlive (uint8_t* live, uint8_t x, uint8_t y) {
   uint16_t ptr  = y / 8 * MAX_WIDTH + x;
   uint8_t  mask = _BV(y % 8);
-  const uint8_t patterns[] = { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 };
+  const uint8_t patterns[] PROGMEM = { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 };
   
 
   live[ptr] = live[ptr] | patterns[y & 0x7];
